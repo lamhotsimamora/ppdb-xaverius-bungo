@@ -9,18 +9,8 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/type">Type Rumah</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/developer">Developer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/sales">Sales</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/customer">Customer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/pembelian">Pembelian</a>
-            </li>
+           
+            
 			<li class="nav-item">
                 <a class="nav-link active" style="color: red" aria-current="page" href="<?= base_url() ?>admin/logout">Logout</a>
             </li>

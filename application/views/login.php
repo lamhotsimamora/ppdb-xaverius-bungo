@@ -22,7 +22,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container">
 		<h4 class="text-center" style="color:white">
 			Login Admin
+			
 		</h4>
+		<hr>
+		<h3 class="text-center" style="color: white">
+			PPDB Xaverius Muara Bungo
+		</h3>
+		<hr>
 		<div id="message">
 
 		</div>

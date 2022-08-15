@@ -1,21 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_customer extends CI_Model
+class M_peserta extends CI_Model
 {
 
 	// Definisi field/colomn tabel
-	public $id_customer;
-	public $nama;
-	public $umur;
+	public $id_peserta;
+	public $nama_lengkap;
 	public $alamat;
-	public $ktp;
-	public $hp;
+	public $kartu_keluarga;
 	//
 
 	// Definisi nama tabel
-	protected $table      = 't_customer';
-	protected $primaryKey = 'id_customer';
+	protected $table      = 'peserta';
+	protected $primaryKey = 'id_peserta';
 	protected $useAutoIncrement = true;
 
 	protected $useTimestamps = false;
@@ -36,7 +34,7 @@ class M_customer extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['developer' => $this->developer]);
+			->where(['nama_lengkap' => $this->nama_lengkap]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -48,30 +46,25 @@ class M_customer extends CI_Model
 	public function add()
 	{
 		$data = array(
-			'nama' => $this->nama,
-			'umur' => $this->umur,
+			'nama_lengkap' => $this->nama_lengkap,
 			'alamat' => $this->alamat,
-			'ktp' => $this->ktp,
-			'hp' => $this->hp,
+			'kartu_keluarga' => $this->kartu_keluarga
 		);
 		return $this->db->insert($this->table, $data);
 	}
 
 	public function update()
 	{
-
 		$data = array(
-			'nama' => $this->nama,
-			'umur' => $this->umur,
+			'nama_lengkap' => $this->nama_lengkap,
 			'alamat' => $this->alamat,
-			'ktp' => $this->ktp,
-			'hp' => $this->hp,
+			'kartu_keluarga' => $this->kartu_keluarga
 		);
-		$this->db->where('id_customer', $this->id_customer);
+		$this->db->where('id_peserta', $this->id_peserta);
 		return $this->db->update($this->table, $data);
 	}
 
 	public function delete(){
-		return $this->db->delete($this->table, array('id_customer' => $this->id_customer));
+		return $this->db->delete($this->table, array('id_peserta' => $this->id_peserta));
 	}
 }
