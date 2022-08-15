@@ -34,7 +34,7 @@ class Admin extends CI_Controller {
 
 	public function index(){
 		if ($this->AuthLogin()){
-			$this->load->view('home');
+			$this->load->view('admin');
 		}else{
 			$this->load->view('login');
 		}
@@ -44,7 +44,7 @@ class Admin extends CI_Controller {
 		if (!$this->AuthLogin()){
 			$this->load->view('login');
 		}else{
-			$this->load->view('home');
+			$this->load->view('admin');
 		}
 	}
 
@@ -58,7 +58,7 @@ class Admin extends CI_Controller {
 
 	public function home(){
 		if ($this->AuthLogin()){
-			$this->load->view('home');
+			$this->load->view('admin');
 		}
 		else{
 			$this->load->view('login');

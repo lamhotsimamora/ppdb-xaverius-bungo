@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/type">Type Rumah</a>
+                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/data-peserta">Data Peserta</a>
             </li>
            
             
