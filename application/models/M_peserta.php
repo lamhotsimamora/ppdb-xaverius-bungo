@@ -11,6 +11,8 @@ class M_peserta extends CI_Model
 	public $kartu_keluarga;
 	public $hp;
 	public $agama;
+	public $ayah;
+	public $ibu;
 	public $asal_sekolah;
 	//
 
@@ -33,6 +35,27 @@ class M_peserta extends CI_Model
 		return $data;
 	}
 
+	public function loadData_byId(){
+		$this->db->select('*')
+			->from($this->table)
+			->where(['id_peserta' => $this->id_peserta]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+		return count($data)>0 ? $data[0]:null;
+	}
+
+	public function getIdPeserta(){
+		$this->db->select('id_peserta')
+			->from($this->table)
+			->where(['token' => $this->token]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+
+		return (count($data) > 0) ? $data[0] : false;
+	}
+
 	public function search()
 	{
 		$this->db->select('*')
@@ -43,6 +66,21 @@ class M_peserta extends CI_Model
 		$data  = $obj->result();
 
 		return (count($data) > 0) ? true : false;
+	}
+
+	public function save_data()
+	{
+		$data = array(
+			'nama_lengkap' => $this->nama_lengkap,
+			'agama' => $this->agama,
+			'asal_sekolah' => $this->asal_sekolah,
+			'alamat' => $this->alamat,
+			'ayah' => $this->ayah,
+			'ibu' => $this->ibu,
+			'hp' => $this->hp,
+		);
+		$this->db->where('id_peserta', $this->id_peserta);
+		return $this->db->update($this->table, $data);
 	}
 
 	public function daftar()

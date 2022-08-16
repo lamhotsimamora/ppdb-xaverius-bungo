@@ -30,6 +30,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<input id="username" @keypress="enterDaftar" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
 				<input id="password" @keypress="enterDaftar" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
 				<button class="button is-success" @click="daftar">Daftar</button>
+				<button class="button is-primary" @click="login">Login</button>
 
 			</div>
 
@@ -66,6 +67,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					if (e.keyCode == 13) {
 						this.daftar();
 					}
+				},
+				login: function(){
+					reload(server+'peserta/login')
 				},
 				daftar: function() {
 					if (this.username == null || this.username === '') {
@@ -108,7 +112,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								icon: 'error',
 								title: 'Oops...',
 								text: 'Something went wrong!',
-								footer: '<a href="">Why do I have this issue?</a>'
+								footer: ''
 							})
 						}
 					});

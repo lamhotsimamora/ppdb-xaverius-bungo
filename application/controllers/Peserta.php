@@ -43,10 +43,25 @@ class Peserta extends CI_Controller
 		redirect(base_url('/'));
 	}
 
+	public function loadData_byId(){
+		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
+	
+		validationInput($id_peserta);
+
+		$result = $this->M_peserta->loadData_byId();
+		echo json_encode($result);
+	}
+
 	public function index()
 	{
 		$data['session_peserta'] = $this->session_peserta;
 		if ($this->AuthLogin()){
+			$token =  $this->session->userdata('token');
+			$token = $token[0]->{'token'};
+			$id_peserta = $this->M_peserta->getIdPeserta();
+			$id_peserta = $id_peserta->{'id_peserta'};
+			
+			$data['id_peserta'] = $id_peserta;
 			$this->load->view('peserta/home',$data);
 		}else{
 			$this->load->view('peserta/index',$data);
@@ -57,6 +72,7 @@ class Peserta extends CI_Controller
 		
 		$data['session_peserta'] = $this->session_peserta;
 		if ($this->AuthLogin()){
+			
 			$this->load->view('peserta/home',$data);
 		}else{
 			$this->load->view('peserta/index',$data);
@@ -101,6 +117,28 @@ class Peserta extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_save_data(){
+		$nama_lengkap=$this->M_peserta->nama_lengkap = $this->input->post('nama_lengkap');
+		$alamat=$this->M_peserta->alamat = $this->input->post('alamat');
+		$asal_sekolah=$this->M_peserta->asal_sekolah = $this->input->post('asal_sekolah');
+		$ayah=$this->M_peserta->ayah = $this->input->post('ayah');
+		$ibu=$this->M_peserta->ibu = $this->input->post('ibu');
+		$hp=$this->M_peserta->hp = $this->input->post('hp');
+		$agama=$this->M_peserta->agama = $this->input->post('agama');
+		$id_peserta = $this->M_peserta->id_peserta = $this->input->post('id_peserta');
+
+		validationInput($id_peserta,$nama_lengkap,$alamat,$asal_sekolah,$ayah,$ibu,$hp,$agama);
+
+		$result = $this->M_peserta->save_data();
+
+		$response  = array('result' => false,'message'=>'Save data gagal');
+		if ($result) {
+
+			$response = array('result' => true,'message'=>'Data Berhasil Disimpan');
+		}
+		echo json_encode($response);
+	}
+
 	public function api_daftar()
 	{
 
@@ -120,9 +158,8 @@ class Peserta extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function loadData()
+	public function api_load_data()
 	{
-
 		$result = $this->M_peserta->loadData();
 
 		echo json_encode($result);

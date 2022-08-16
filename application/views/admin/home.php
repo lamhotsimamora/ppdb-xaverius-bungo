@@ -12,7 +12,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<title>Data Peserta | Admin</title>
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/bootstrap.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/jquery-1.9.1.min.js"></script>
-
+	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
+	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/bootstrap.min.js"></script>
 
 
@@ -41,7 +42,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<th scope="col">#</th>
 						<th scope="col">Nama Lengkap</th>
 						<th scope="col">Alamat</th>
-						<th scope="col">Kartu Keluarga</th>
+						<th scope="col">Ayah</th>
+						<th scope="col">Ibu</th>
+						<th scope="col">Agama</th>
+						<th scope="col">Asal Sekolah</th>
+						<th scope="col">Whatsapp</th>
+						<th>
+							@
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,7 +57,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<th scope="row">{{ i+1 }}</th>
 						<td>{{ d.nama_lengkap }}</td>
 						<td>{{ d.alamat }}</td>
-						<td>{{ d.kartu_keluarga }}</td>
+						<td>{{ d.ayah }}</td>
+						<td>{{ d.ibu }}</td>
+						<td>{{ d.agama }}</td>
+						<td>{{ d.asal_sekolah }}</td>
+						<td>{{ d.hp }}</td>
+						<td>
+							<button @click="delete(d.id_peserta)" class="btn btn-danger btn-sm">x</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -73,9 +88,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				moneyFormat: function(v){
 					return moneyFormat(v);
 				},	
+				delete: function(id){
+
+				},
 				loadData:function(){
 					Vony({
-						url : server+'peserta/loadData',
+						url : server+'peserta/api_load_data',
 						method : 'post',
 						data : {
 							_TOKEN_ : _TOKEN_

@@ -15,6 +15,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/bootstrap.min.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
+	
+	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 </head>
 
 <body style="background-color: #232131">

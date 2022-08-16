@@ -27,9 +27,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<h2 class="title is-2">Login Peserta PPDB</h2>
 				<hr>
 				<div id="message"></div> <br>
-				<input id="username" @keypress="enterDaftar" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
-				<input id="password" @keypress="enterDaftar" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
+				<input id="username" @keypress="enterLogin" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
+				<input id="password" @keypress="enterLogin" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
 				<button class="button is-success" @click="login">Login</button>
+				<button class="button is-primary" @click="daftar">Daftar</button>
 
 			</div>
 
@@ -59,10 +60,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				password: null
 			},
 			methods: {
-				enterDaftar: function(e) {
+				enterLogin: function(e) {
 					if (e.keyCode == 13) {
 						this.login();
 					}
+				},
+				daftar: function(){
+					reload(server+'peserta/daftar')
 				},
 				login: function() {
 					if (this.username == null || this.username === '') {
@@ -102,12 +106,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							Vony({
 								id: 'password'
 							}).clear();
+							reload('.');
 						} else {
 							Swal.fire({
 								icon: 'error',
 								title: 'Oops...',
 								text: 'Login Gagal !',
-								footer: '<a href="">Silahkan coba lagi</a>'
+								footer: ''
 							})
 						}
 					});
