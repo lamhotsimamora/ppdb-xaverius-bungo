@@ -9,6 +9,9 @@ class M_peserta extends CI_Model
 	public $nama_lengkap;
 	public $alamat;
 	public $kartu_keluarga;
+	public $hp;
+	public $agama;
+	public $asal_sekolah;
 	//
 
 	// Definisi nama tabel
@@ -42,6 +45,50 @@ class M_peserta extends CI_Model
 		return (count($data) > 0) ? true : false;
 	}
 
+	public function daftar()
+	{
+		$data = array(
+			'username' => $this->username,
+			'password' => _md5($this->password),
+			'token' => createTokenPeserta($this->username),
+		);
+		return $this->db->insert($this->table, $data);
+	}
+
+	public function checkToken()
+	{
+		$this->db->select('id_peserta')
+			->from($this->table)
+			->where(['token' => $this->token]);
+
+		$obj = $this->db->get();
+
+		$data  = $obj->result();
+
+		return count($data)>0 ? true : false;
+	}
+
+	public function getToken()
+	{
+		$this->db->select('token')
+			->from($this->table)
+			->where(['username' => $this->username, 'password' => _md5($this->password)]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+
+		return $data;
+	}
+	public function login(){
+		$this->db->select('id_peserta')
+			->from($this->table)
+			->where(['username' => $this->username, 'password' => _md5($this->password)]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+
+		return (count($data) > 0) ? true : false;
+	}
 
 	public function add()
 	{

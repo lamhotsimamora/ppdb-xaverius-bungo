@@ -1,5 +1,19 @@
 <?php 
 
+function createTokenPeserta($value){
+	return _md5($value.'pdrtechnology');
+}
+
+function validationInput(){
+	$numargs = func_num_args();
+	for ($i=0; $i < $numargs; $i++) { 
+		$input = func_get_arg($i);
+		if ($input==='' || $input==null ){
+			exit(json_encode(array('message'=>'Input is required !')));
+		}
+	}
+	
+}
 
 function validationToken($value){
 	if ($value!=token()){

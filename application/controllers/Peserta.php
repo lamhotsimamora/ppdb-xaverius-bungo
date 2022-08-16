@@ -1,27 +1,130 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Peserta extends CI_Controller {
+class Peserta extends CI_Controller
+{
+	public $session_peserta;
+	public $session_token;
 
-	public function index(){
-		$this->load->view('peserta');
-	}
-
-	public function add(){
-		$this->load->model('M_peserta');
-
-		$this->M_peserta->nama_lengkap = $this->input->post('nama_lengkap');
-
-		$result = $this->M_peserta->add();
+	public function AuthLogin(){
 		
-		echo json_encode($result); 
+		if ($this->session_peserta==false || $this->session_peserta ==null || $this->session_token == false 
+			|| $this->session_token == null)
+		{
+			return false;
+		}else{
+			
+			$token = $this->session->userdata('token');
+			$token = $token[0]->{"token"};
+
+			$this->M_peserta->token = $token;
+		
+			if (!$this->M_peserta->checkToken()){
+				$this->session->unset_userdata('peserta');
+				$this->session->unset_userdata('token');
+				return false;
+			}
+		}
+		return true;
 	}
 
-	public function loadData(){
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model('M_peserta');
+		
+		$this->session_peserta	= $this->session->has_userdata('peserta');
+		$this->session_token	= $this->session->has_userdata('token');
+	}
+
+	public function logout(){
+		$this->session->unset_userdata('peserta');
+		$this->session->unset_userdata('token');
+		redirect(base_url('/'));
+	}
+
+	public function index()
+	{
+		$data['session_peserta'] = $this->session_peserta;
+		if ($this->AuthLogin()){
+			$this->load->view('peserta/home',$data);
+		}else{
+			$this->load->view('peserta/index',$data);
+		}
+	}
+
+	public function home(){
+		
+		$data['session_peserta'] = $this->session_peserta;
+		if ($this->AuthLogin()){
+			$this->load->view('peserta/home',$data);
+		}else{
+			$this->load->view('peserta/index',$data);
+		}
+	}
+
+
+	public function daftar()
+	{
+		$data['session_peserta'] = $this->session_peserta;
+		$this->load->view('peserta/daftar',$data);
+	}
+
+	public function login()
+	{
+		$data['session_peserta'] = $this->session_peserta;
+		if ($this->AuthLogin()){
+			$this->load->view('peserta/home',$data);
+		}else{
+			$this->load->view('peserta/login',$data);
+		}
+	}
+
+	public function api_login(){
+
+		$username=$this->M_peserta->username = $this->input->post('username');
+		$password=$this->M_peserta->password = $this->input->post('password');
+
+		validationInput($username,$password);
+
+		$login = $this->M_peserta->login();
+		
+		
+		$response  = array('result' => false,'message'=>'Login gagal');
+		if ($login){
+			$token= $this->M_peserta->getToken();
+	
+			$this->session->set_userdata('peserta',true);
+			$this->session->set_userdata('token',$token);
+			$response = array('result' => true,'message'=>'Login Berhasil','token'=>$token);
+		}
+		echo json_encode($response);
+	}
+
+	public function api_daftar()
+	{
+
+		$username=$this->M_peserta->username = $this->input->post('username');
+		$password=$this->M_peserta->password = $this->input->post('password');
+
+		validationInput($username,$password);
+
+		$daftar = $this->M_peserta->daftar();
+
+
+		$response  = array('result' => false,'message'=>'Pendaftaran gagal');
+		if ($daftar) {
+
+			$response = array('result' => true,'message'=>'Pendaftaran Berhasil');
+		}
+		echo json_encode($response);
+	}
+
+	public function loadData()
+	{
 
 		$result = $this->M_peserta->loadData();
-		
-		echo json_encode($result); 
+
+		echo json_encode($result);
 	}
 }
