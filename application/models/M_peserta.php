@@ -149,7 +149,7 @@ class M_peserta extends CI_Model
 		return $this->db->update($this->table, $data);
 	}
 
-	public function delete(){
+	public function delete_data(){
 		return $this->db->delete($this->table, array('id_peserta' => $this->id_peserta));
 	}
 }

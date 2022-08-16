@@ -34,7 +34,7 @@ class Admin extends CI_Controller {
 
 	public function index(){
 		if ($this->AuthLogin()){
-			$this->load->view('admin/home');
+			$this->load->view('admin/home/');
 		}else{
 			$this->load->view('admin/login');
 		}
@@ -48,64 +48,19 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function pembelian(){
-		if ($this->AuthLogin()){
-			$this->load->view('pembelian');
-		}else{
-			$this->load->view('login');
-		}
-	}
+	
 
 	public function home(){
 		if ($this->AuthLogin()){
-			$this->load->view('admin');
+			$this->load->view('admin/home');
 		}
 		else{
-			$this->load->view('login');
+			$this->load->view('admin/login');
 		}
 	}
 
-	public function developer(){
-		if ($this->AuthLogin()){
-			$this->load->view('developer');
-		}else{
-			$this->load->view('login');
-		}
-	}
 
-	public function sales(){
-		if ($this->AuthLogin()){
-			$this->load->view('sales');
-		}else{
-			$this->load->view('login');
-		}
-	}
 
-	public function type(){
-		if ($this->AuthLogin()){
-			$this->load->view('type');
-		}
-		else{
-			$this->load->view('login');
-		}
-	}
-
-	public function type_add(){
-		if ($this->AuthLogin()){
-			$this->load->view('type-add');
-		}
-		else{
-			$this->load->view('login');
-		}
-	}
-
-	public function customer(){
-		if ($this->AuthLogin()){
-			$this->load->view('customer');
-		}else{
-			$this->load->view('login');
-		}
-	}
 
 	public function logout(){
 		$this->session->unset_userdata('admin');

@@ -43,6 +43,15 @@ class Peserta extends CI_Controller
 		redirect(base_url('/'));
 	}
 
+	public function api_delete_data(){
+		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
+	
+		validationInput($id_peserta);
+
+		$result = $this->M_peserta->delete_data();
+		echo json_encode($result);
+	}
+
 	public function loadData_byId(){
 		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
 	
