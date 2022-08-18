@@ -15,9 +15,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/bootstrap.min.js"></script>
-	
+
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
-	
+
 
 </head>
 
@@ -41,7 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 			<div class="input-group mb-3">
 				<span class="input-group-text" id="basic-addon1">Search...</span>
-				<input type="text" class="form-control" placeholder="..." aria-label="Username" aria-describedby="basic-addon1">
+				<input v-model="search" id="search" @keypress="enterSearch" type="text" class="form-control" placeholder="..." aria-label="Username" aria-describedby="basic-addon1">
 			</div>
 
 			<div class="table-responsive">
@@ -94,9 +94,36 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		new Vue({
 			el: '#app',
 			data: {
-				data_peserta: null
+				data_peserta: null,
+				search: null
 			},
 			methods: {
+				searchData: function() {
+					if (this.search == null || this.search === '') {
+						Vony({
+							id: 'search'
+						}).focus();
+						return;
+					}
+
+					Vony({
+						url: server + 'admin/api_search_data',
+						method: 'post',
+						data: {
+							_TOKEN_: _TOKEN_,
+							search: this.search
+						}
+					}).ajax(($response) => {
+						var obj = JSON.parse($response);
+
+						this.data_peserta = obj;
+					});
+				},
+				enterSearch: function(e) {
+					if (e.keyCode == 13) {
+						this.searchData()
+					}
+				},
 				moneyFormat: function(v) {
 					return moneyFormat(v);
 				},
@@ -121,8 +148,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				},
 				deleteData: function(data_id) {
 					Swal.fire({
-						title: 'Are you sure?',
-						text: "You won't be able to revert this!",
+						title: 'Yakin mau hapus data ini ?',
+						text: "Data yang dihapus tidak bisa dikembalikan",
 						icon: 'warning',
 						showCancelButton: true,
 						confirmButtonColor: '#3085d6',
@@ -131,7 +158,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					}).then((result) => {
 						if (result.isConfirmed) {
 							Vony({
-								url: server + 'peserta/api_delete_data',
+								url: server + 'admin/api_delete_data',
 								method: 'post',
 								data: {
 									_TOKEN_: _TOKEN_,
@@ -140,19 +167,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							}).ajax(($response) => {
 
 								this.loadData();
+								Swal.fire(
+									'Deleted!',
+									'Data has been deleted.',
+									'success'
+								)
 							});
-							Swal.fire(
-								'Deleted!',
-								'Data has been deleted.',
-								'success'
-							)
+
 						}
 					})
-					
+
 				},
 				loadData: function() {
 					Vony({
-						url: server + 'peserta/api_load_data',
+						url: server + 'admin/api_load_data',
 						method: 'post',
 						data: {
 							_TOKEN_: _TOKEN_

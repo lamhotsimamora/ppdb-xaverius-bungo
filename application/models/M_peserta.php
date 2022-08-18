@@ -93,6 +93,30 @@ class M_peserta extends CI_Model
 		return $this->db->insert($this->table, $data);
 	}
 
+	public function searchData($search){
+		$this->db->select('*')
+		->from($this->table)
+		->like('nama_lengkap' ,$search);
+
+		$obj = $this->db->get();
+
+		$data  = $obj->result();
+
+		return count($data)>0 ? $data : false;
+	}
+
+	public function checkUsername(){
+		$this->db->select('id_peserta')
+			->from($this->table)
+			->where(['username' => $this->username]);
+
+		$obj = $this->db->get();
+
+		$data  = $obj->result();
+
+		return count($data)>0 ? true : false;
+	}
+
 	public function checkToken()
 	{
 		$this->db->select('id_peserta')

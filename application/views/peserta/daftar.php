@@ -14,6 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
+	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 </head>
 
 <body>
@@ -51,7 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						Pendaftaran Peserta Berhasil ! Silahkan Login !
 			</div>`;
 		}
-		Vony({id:'username',focus:true})
+		Vony({id:'username'}).focus()
 
 		new Vue({
 			el: '#app',
@@ -84,6 +85,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						}).focus();
 						return;
 					}
+					Vony({id:'message'}).set('');
 
 					Vony({
 						url: server + 'peserta/api_daftar',
@@ -111,7 +113,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							Swal.fire({
 								icon: 'error',
 								title: 'Oops...',
-								text: 'Something went wrong!',
+								text: obj.message,
 								footer: ''
 							})
 						}

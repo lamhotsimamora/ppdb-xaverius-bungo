@@ -61,13 +61,13 @@
 						echo '<button onclick="logout()" class="button is-danger">Logout</button>
 							';
 					} else {
-						echo `
-							<a href="peserta/daftar" class="button is-primary">
-								<strong>Daftar</strong>
-							</a>
-							<a href="peserta/login" class="button is-light">
-								Login
-							</a>`;
+						echo '
+						<a href="' . base_url() . 'peserta/daftar" class="button is-primary">
+							<strong>Daftar</strong>
+						</a>
+						<a href="' . base_url() . 'peserta/login" class="button is-light">
+							Login
+						</a>';
 					}
 
 					?>
@@ -82,12 +82,12 @@
 	var server = '<?= base_url('') ?>';
 
 
-function logout(){
-	Vony({
-		url : server+'peserta/logout'
-	}).ajax((response)=>{
-		reload();
-	});
-}
+	function logout() {
+		Vony({
+			url: server + 'peserta/logout'
+		}).ajax((response) => {
+			reload();
+		});
+	}
 </script>
 <!-- navbar -->

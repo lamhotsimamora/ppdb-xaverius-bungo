@@ -14,6 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
+	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 </head>
 
 <body>

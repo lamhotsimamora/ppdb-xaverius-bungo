@@ -34,7 +34,7 @@ class Admin extends CI_Controller {
 
 	public function index(){
 		if ($this->AuthLogin()){
-			$this->load->view('admin/home/');
+			$this->load->view('admin/home');
 		}else{
 			$this->load->view('admin/login');
 		}
@@ -42,13 +42,15 @@ class Admin extends CI_Controller {
 
 	public function login(){
 		if (!$this->AuthLogin()){
-			$this->load->view('login');
+			$this->load->view('admin/login');
 		}else{
-			$this->load->view('admin');
+			$this->load->view('admin/admin');
 		}
 	}
 
-	
+	public function data_peserta(){
+		redirect('./admin/home');
+	}
 
 	public function home(){
 		if ($this->AuthLogin()){
@@ -60,8 +62,6 @@ class Admin extends CI_Controller {
 	}
 
 
-
-
 	public function logout(){
 		$this->session->unset_userdata('admin');
 		$this->session->unset_userdata('token');
@@ -71,7 +71,6 @@ class Admin extends CI_Controller {
 	public function api_login()
 	{
 		$response = array('message'=>'Login Failed','result'=>false);
-
 
 		$this->M_admin->username =  $this->input->post('username');
 		$this->M_admin->password = $this->input->post('password');
@@ -89,6 +88,46 @@ class Admin extends CI_Controller {
 		}
 		echo json_encode($response);
 	}
+
+	public function api_load_data()
+	{
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_peserta');
+		$result = $this->M_peserta->loadData();
+
+		echo json_encode($result);
+	}
+
+	public function api_search_data(){
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_peserta');
+		$search = $this->M_peserta->id_peserta = $this->input->post('search');
+	
+		validationInput($search);
+
+		$result = $this->M_peserta->searchData($search);
+		echo json_encode($result);
+	}
+
+		
+	public function api_delete_data(){
+
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_peserta');
+		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
+	
+		validationInput($id_peserta);
+
+		$result = $this->M_peserta->delete_data();
+		echo json_encode($result);
+	}
+
 
 	public function add(){
 		$result = $this->M_admin->add();

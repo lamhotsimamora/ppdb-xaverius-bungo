@@ -43,16 +43,13 @@ class Peserta extends CI_Controller
 		redirect(base_url('/'));
 	}
 
-	public function api_delete_data(){
-		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
-	
-		validationInput($id_peserta);
-
-		$result = $this->M_peserta->delete_data();
-		echo json_encode($result);
-	}
 
 	public function loadData_byId(){
+
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+
 		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
 	
 		validationInput($id_peserta);
@@ -95,6 +92,11 @@ class Peserta extends CI_Controller
 		$this->load->view('peserta/daftar',$data);
 	}
 
+	public function upload(){
+		$data['session_peserta'] = $this->session_peserta;
+		$this->load->view('peserta/upload',$data);
+	}
+
 	public function login()
 	{
 		$data['session_peserta'] = $this->session_peserta;
@@ -127,6 +129,10 @@ class Peserta extends CI_Controller
 	}
 
 	public function api_save_data(){
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+
 		$nama_lengkap=$this->M_peserta->nama_lengkap = $this->input->post('nama_lengkap');
 		$alamat=$this->M_peserta->alamat = $this->input->post('alamat');
 		$asal_sekolah=$this->M_peserta->asal_sekolah = $this->input->post('asal_sekolah');
@@ -150,11 +156,18 @@ class Peserta extends CI_Controller
 
 	public function api_daftar()
 	{
-
+		
 		$username=$this->M_peserta->username = $this->input->post('username');
 		$password=$this->M_peserta->password = $this->input->post('password');
 
 		validationInput($username,$password);
+
+		$check = $this->M_peserta->checkUsername();
+
+		if ($check){
+			$response = array('result' => false,'message'=>'Username sudah digunakan');
+			exit(json_encode($response));
+		}
 
 		$daftar = $this->M_peserta->daftar();
 
@@ -167,10 +180,6 @@ class Peserta extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function api_load_data()
-	{
-		$result = $this->M_peserta->loadData();
 
-		echo json_encode($result);
-	}
+	
 }
