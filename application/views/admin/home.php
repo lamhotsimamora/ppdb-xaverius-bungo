@@ -57,6 +57,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<th scope="col">Agama</th>
 							<th scope="col">Asal Sekolah</th>
 							<th scope="col">Whatsapp</th>
+							<th scope="col">Kartu Keluarga</th>
 							<th>
 								@
 							</th>
@@ -73,6 +74,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<td>{{ fixAgama(d.agama) }}</td>
 							<td>{{ d.asal_sekolah }}</td>
 							<td>{{ d.hp }}</td>
+							<td>
+								<a target="_blank" :href="getLinkFile(d.kartu_keluarga)">{{ d.kartu_keluarga }}</a>
+							</td>
 							<td>
 								<button v-on:click="deleteData(d.id_peserta)" class="btn btn-danger btn-sm">x</button>
 							</td>
@@ -98,6 +102,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				search: null
 			},
 			methods: {
+				getLinkFile: function(v){
+					return server+'public/file/'+v;
+				},
 				searchData: function() {
 					if (this.search == null || this.search === '') {
 						Vony({

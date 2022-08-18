@@ -18,6 +18,7 @@ class M_peserta extends CI_Model
 
 	// Definisi nama tabel
 	protected $table      = 'peserta';
+	protected $view      = 'view_peserta';
 	protected $primaryKey = 'id_peserta';
 	protected $useAutoIncrement = true;
 
@@ -29,7 +30,7 @@ class M_peserta extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->view);
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return $data;

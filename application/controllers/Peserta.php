@@ -50,9 +50,11 @@ class Peserta extends CI_Controller
 			exit(json_encode(array('message'=>'access denied')));
 		}
 
-		$id_peserta=$this->M_peserta->id_peserta = $this->input->post('id_peserta');
+		$id_peserta = $this->input->post('id_peserta');
 	
 		validationInput($id_peserta);
+
+		$this->M_peserta->id_peserta = $id_peserta;
 
 		$result = $this->M_peserta->loadData_byId();
 		echo json_encode($result);
@@ -69,6 +71,7 @@ class Peserta extends CI_Controller
 			
 			$data['id_peserta'] = $id_peserta;
 			$this->load->view('peserta/home',$data);
+			
 		}else{
 			$this->load->view('peserta/index',$data);
 		}
@@ -78,10 +81,15 @@ class Peserta extends CI_Controller
 		
 		$data['session_peserta'] = $this->session_peserta;
 		if ($this->AuthLogin()){
+			$token =  $this->session->userdata('token');
+			$token = $token[0]->{'token'};
+			$id_peserta = $this->M_peserta->getIdPeserta();
+			$id_peserta = $id_peserta->{'id_peserta'};
 			
+			$data['id_peserta'] = $id_peserta;
 			$this->load->view('peserta/home',$data);
 		}else{
-			$this->load->view('peserta/index',$data);
+			redirect('./peserta/index');
 		}
 	}
 
@@ -94,7 +102,17 @@ class Peserta extends CI_Controller
 
 	public function upload(){
 		$data['session_peserta'] = $this->session_peserta;
-		$this->load->view('peserta/upload',$data);
+		if ($this->AuthLogin()){
+			$token =  $this->session->userdata('token');
+			$token = $token[0]->{'token'};
+			$id_peserta = $this->M_peserta->getIdPeserta();
+			$id_peserta = $id_peserta->{'id_peserta'};
+			
+			$data['id_peserta'] = $id_peserta;
+			$this->load->view('peserta/upload',$data);
+		}else{
+			redirect('./peserta/index');
+		}
 	}
 
 	public function login()
@@ -174,7 +192,7 @@ class Peserta extends CI_Controller
 
 		$response  = array('result' => false,'message'=>'Pendaftaran gagal');
 		if ($daftar) {
-
+			
 			$response = array('result' => true,'message'=>'Pendaftaran Berhasil');
 		}
 		echo json_encode($response);

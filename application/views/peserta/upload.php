@@ -12,6 +12,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<title>Upload Berkas | PPDB Online Xaverius Muara Bungo</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
+	<script src="<?= base_url('') ?>public/assets/js/upload.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
@@ -33,10 +34,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div id="app" class="container">
 		<div class="card">
 			<div class="card-content">
-					<input class="input is-rounded" type="file" placeholder="Upload File">
-					<br><br>
-					
-					<button class="button is-primary" @click="">Upload</button>
+				<label for="">File Kartu Keluarga</label>
+				<input id="file_kartu_keluarga" name="file_kartu_keluarga" class="input is-rounded" type="file" placeholder="Upload Kartu Keluarga">
+				<br><br>
+
+				<button @click="uploadFile" class="button is-primary" @click="">Upload</button>
 
 			</div>
 
@@ -51,7 +53,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		var _TOKEN_ = '<?= $this->security->get_csrf_hash(); ?>';
 		var _ID_PESERTA = '<?= $id_peserta ?? null ?>';
 
-		
+
+		new Vue({
+			el:'#app',
+			data :{
+
+			},methods: {
+				uploadFile:function(){
+					new Upload({
+						// Array
+						el: ['file_kartu_keluarga'],
+						// String
+						url: server+'/fileberkas/api_upload_file',
+						// String
+						data: _ID_PESERTA,
+						// String
+						token: _TOKEN_
+					}).start(($response) => {
+						console.log($response);
+					});
+				}
+			},
+		});
 	</script>
 
 </body>

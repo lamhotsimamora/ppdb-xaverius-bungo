@@ -15,6 +15,12 @@ function validationInput(){
 	
 }
 
+
+function generateFileName(){
+	$string = _randomStr(25).'-'._randomStr(25);
+	return $string;
+}
+
 function validationToken($value){
 	if ($value!=token()){
 		exit(json_encode(array('result'=>false,'message'=>'Token is invalid!')));
