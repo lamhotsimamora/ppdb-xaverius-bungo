@@ -65,16 +65,16 @@ class FileBerkas extends CI_Controller
 		
 		$filename = generateFileName();
 
-		$config['upload_path']          = './public/file/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 600;
-		$config['file_name']             = $filename;
+		$config['upload_path']      = './public/file/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 800;
+		$config['file_name']        = $filename;
 		// $config['max_width']            = 1024;
 		// $config['max_height']           = 768;
 
 		$this->load->library('upload', $config);
 
-		$result['result'] = array('result'=>false,'message'=>'File gagal diupload!');
+		$result= array('result'=>false,'message'=>'File gagal diupload!');
 
 		$result_upload = $this->upload->do_upload('file_kartu_keluarga');
 
@@ -83,20 +83,22 @@ class FileBerkas extends CI_Controller
 			$this->load->model("M_file");
 			
 			$filename=$this->upload->data('file_name');   
+
 			$this->M_file->id_peserta = $id_peserta;
 			$this->M_file->kartu_keluarga = $filename;
 
 			$checkFile =$this->M_file->checkData();
 			
 			$save=false;
-			if (!$checkFile){			
-				$save = $this->M_file->saveData();
+			
+			if ($checkFile==false){			
+				$save = $this->M_file->addData();
 			}else{
-				$save = $this->M_file->update();
+				$save = $this->M_file->updateData();
 			}
 			
 			if ($save){
-				$result['result'] = array('result'=>true,'message'=>'File berhasil diupload !');
+				$result = array('result'=>true,'message'=>'File berhasil diupload !');
 			}
 		}
 

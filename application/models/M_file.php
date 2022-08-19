@@ -49,16 +49,17 @@ class M_file extends CI_Model
 		return count($data)>0 ? true : false;
 	}
 
-	public function saveData()
+	public function addData()
 	{
 		$data = array(
-			'id_peserta'=>$this->id_peserta,
 			'kartu_keluarga' => $this->kartu_keluarga,
+			'id_peserta' => $this->id_peserta
 		);
-		return $this->db->insert($this->table, $data);
+		$result= $this->db->insert($this->table, $data);
+		return $result ? true : false;
 	}
 
-	public function update()
+	public function updateData()
 	{
 		$data = array(
 			'kartu_keluarga' => $this->kartu_keluarga,

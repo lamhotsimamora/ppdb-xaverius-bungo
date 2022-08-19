@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container">
 		<div class="card">
 			<div class="card-content">
-				<h2 class="title is-2">Data Peserta PPDB</h2>
+				<h2 class="title is-2">Upload Berkas Peserta PPDB</h2>
 			</div>
 		</div>
 	</div>
@@ -34,6 +34,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div id="app" class="container">
 		<div class="card">
 			<div class="card-content">
+
+				<a href=""></a>
 				<label for="">File Kartu Keluarga</label>
 				<input id="file_kartu_keluarga" name="file_kartu_keluarga" class="input is-rounded" type="file" placeholder="Upload Kartu Keluarga">
 				<br><br>
@@ -57,7 +59,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		new Vue({
 			el:'#app',
 			data :{
-
+				file_kartu_keluarga : null
 			},methods: {
 				uploadFile:function(){
 					new Upload({
@@ -70,7 +72,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						// String
 						token: _TOKEN_
 					}).start(($response) => {
-						console.log($response);
+						 var obj = JSON.parse($response);
+
+						 if (obj){
+							console.log(obj.result)
+							var result = obj.result;
+
+							if (result==true){
+								Swal.fire({
+									icon: 'success',
+									title: 'Success',
+									text: 'File Berhasil Diupload !',
+									footer: '<a href=""></a>'
+								})
+							}else{
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'File Gagal Diupload !',
+									footer: '<a href="">Silahkan coba lagi</a>'
+								})
+							}
+						 }
 					});
 				}
 			},
