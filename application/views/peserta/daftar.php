@@ -19,7 +19,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <body>
 	<?php include '@layout/navbar.php'; ?>
-	
+
 	<hr>
 
 	<div id="app" class="container">
@@ -27,6 +27,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="card-content">
 				<h2 class="title is-2">Pendaftaran Peserta PPDB</h2>
 				<hr>
+				<progress class="progress is-primary" :value="start" max="100">
+
+				</progress>
+
 				<div id="message"></div> <br>
 				<input id="username" @keypress="enterDaftar" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
 				<input id="password" @keypress="enterDaftar" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
@@ -52,25 +56,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						Pendaftaran Peserta Berhasil ! Silahkan Login !
 			</div>`;
 		}
-		Vony({id:'username'}).focus()
+		Vony({
+			id: 'username'
+		}).focus()
+
+
 
 		new Vue({
 			el: '#app',
 			data: {
 				username: null,
-				password: null
+				password: null,
+				start: null,
 			},
 			mounted() {
-				
-			},	
+				this.start = 0;
+			},
 			methods: {
 				enterDaftar: function(e) {
 					if (e.keyCode == 13) {
 						this.daftar();
 					}
 				},
-				login: function(){
-					reload(server+'peserta/login')
+				login: function() {
+					reload(server + 'peserta/login')
 				},
 				daftar: function() {
 					if (this.username == null || this.username === '') {
@@ -85,7 +94,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						}).focus();
 						return;
 					}
-					Vony({id:'message'}).set('');
+					Vony({
+						id: 'message'
+					}).set('');
+
+					var timerLoading = setInterval(() => {
+						this.start++;
+					}, 50);
 
 					Vony({
 						url: server + 'peserta/api_daftar',
@@ -98,6 +113,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					}).ajax(($response) => {
 						var obj = JSON.parse($response);
 						var result = obj.result;
+
+						clearInterval(timerLoading);
 
 						if (result == true) {
 							Vony({

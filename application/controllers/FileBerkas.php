@@ -62,6 +62,7 @@ class FileBerkas extends CI_Controller
 		$id_peserta = $this->input->post('id');
 		
 		validationInput($id_peserta);
+		$id_peserta =(int)$id_peserta;
 		
 		$filename = generateFileName();
 
@@ -82,9 +83,10 @@ class FileBerkas extends CI_Controller
 		{
 			$this->load->model("M_file");
 			
-			$filename=$this->upload->data('file_name');   
-
 			$this->M_file->id_peserta = $id_peserta;
+			
+			$filename = $this->upload->data('file_name');   
+
 			$this->M_file->kartu_keluarga = $filename;
 
 			$checkFile =$this->M_file->checkData();

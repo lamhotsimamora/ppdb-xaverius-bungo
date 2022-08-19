@@ -52,11 +52,10 @@ class M_file extends CI_Model
 	public function addData()
 	{
 		$data = array(
-			'kartu_keluarga' => $this->kartu_keluarga,
-			'id_peserta' => $this->id_peserta
+			'id_peserta' => $this->id_peserta,
+			'kartu_keluarga'=>$this->kartu_keluarga
 		);
-		$result= $this->db->insert($this->table, $data);
-		return $result ? true : false;
+		return $this->db->insert($this->table, $data);
 	}
 
 	public function updateData()
