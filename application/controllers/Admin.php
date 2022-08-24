@@ -129,11 +129,11 @@ class Admin extends CI_Controller {
 	}
 
 
-	public function add(){
-		$result = $this->M_admin->add();
+	// public function add(){
+	// 	$result = $this->M_admin->add();
 		
-		var_dump($result);
-	}
+	// 	var_dump($result);
+	// }
 
 	
 }

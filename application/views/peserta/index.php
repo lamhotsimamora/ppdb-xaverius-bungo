@@ -13,6 +13,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
+	
+	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 </head>
 
 <body>
@@ -59,7 +61,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					c. Jalur khusus (Dari seluruh lulusan SD katolik)<br>
 					d. Jalur umum.<br>
 
-
+					<hr>
+					<a href="<?= base_url() ?>peserta/daftar" class="button is-primary">
+							<strong>Daftar</strong>
+					</a>
+					<a href="<?= base_url() ?>peserta/login" class="button is-success">
+							<strong>Login</strong>
+					</a>
 				</div>
 			</div>
 		</div>

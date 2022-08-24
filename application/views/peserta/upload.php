@@ -39,6 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<img class="is-rounded" src="<?= base_url() ?>public/img/loading.gif">
 					</figure>
 				</center>
+				<hr>
 				<center>
 				<figure class="image is-96x96">
 					<img id="" class="is-square" :src="image_preview">

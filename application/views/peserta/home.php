@@ -32,13 +32,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<div id="app" class="container">
 		<div class="card">
+
 			<div class="card-content">
 
-				<!-- <center>
-				<figure class="image is-128x128">
-					<img src="https://bulma.io/images/placeholders/128x128.png">
-				</figure>
-			</center> -->
+				<a href="<?= base_url() ?>peserta/upload">Upload Berkas</a>
+
 
 				<hr>
 				<input id="nama_lengkap" @keypress="enterDaftar" v-model="nama_lengkap" class="input is-rounded" type="text" placeholder="Nama Lengkap"> <br> <br>
@@ -59,21 +57,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<input id="ibu" @keypress="enterDaftar" v-model="ibu" class="input is-rounded" type="text" placeholder="Nama Ibu"> <br> <br>
 				<input id="hp" @keypress="enterDaftar" v-model="hp" class="input is-rounded" type="text" placeholder="Nomor Whatsapp"> <br> <br>
 
+				<center v-if="loading">
+					<figure class="image is-48x48">
+						<img class="is-rounded" src="<?= base_url() ?>public/img/loading.gif">
+					</figure>
+				</center>
+				<hr>
 				<center>
 					<button @click="save" class="button is-info">Save</button>
-					<br>
-					<br>
-					<a href="<?= base_url() ?>peserta/upload">Upload Berkas</a>
 				</center>
-				<br>
-				<br>
+
 			</div>
 
 		</div>
 	</div>
-
-
-
 	<script>
 		var server = '<?= base_url('') ?>';
 
@@ -98,6 +95,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				ibu: null,
 				hp: null,
 				agama: null,
+				loading: false,
 				data_agama: [{
 						agama: "Kristen Protestan",
 						angka: 1
@@ -201,7 +199,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						}).focus();
 						return;
 					}
-
+					this.loading = true;
 					Vony({
 						url: server + 'peserta/api_save_data',
 						method: 'post',
@@ -219,7 +217,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					}).ajax(($response) => {
 						var obj = JSON.parse($response);
 						var result = obj.result;
-
+						this.loading = false;
 						if (result == true) {
 							Swal.fire({
 								icon: 'success',
