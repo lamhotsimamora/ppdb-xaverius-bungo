@@ -121,6 +121,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			},
 		})
 
+		var password = Vony({id:'password'})
 
 
 		var btnshowpassword = Vony({
