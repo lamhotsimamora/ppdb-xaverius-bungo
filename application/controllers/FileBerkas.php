@@ -58,53 +58,5 @@ class FileBerkas extends CI_Controller
 	}
 
 
-	public function api_upload_file(){
-		$id_peserta = $this->input->post('id');
-		
-		validationInput($id_peserta);
-		$id_peserta =(int)$id_peserta;
-		
-		$filename = generateFileName();
-
-		$config['upload_path']      = './public/file/';
-		$config['allowed_types']    = 'jpeg|gif|jpg|png';
-		$config['max_size']         = 800;
-		$config['file_name']        = $filename;
-		// $config['max_width']            = 1024;
-		// $config['max_height']           = 768;
-
-		$this->load->library('upload', $config);
-
-		$result= array('result'=>false,'message'=>'File gagal diupload!');
-
-		$result_upload = $this->upload->do_upload('file_kartu_keluarga');
-
-		if ( $result_upload )
-		{
-			$this->load->model("M_file");
-			
-			$this->M_file->id_peserta = $id_peserta;
-			
-			$filename = $this->upload->data('file_name');   
-
-			$this->M_file->kartu_keluarga = $filename;
-
-			$checkFile =$this->M_file->checkData();
-			
-			$save=false;
-			
-			if ($checkFile==false){			
-				$save = $this->M_file->addData();
-			}else{
-				$save = $this->M_file->updateData();
-			}
-			
-			if ($save){
-				$result = array('result'=>true,'message'=>'File berhasil diupload !');
-			}
-		}
-
-		echo json_encode($result);
-	}
 	
 }

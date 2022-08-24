@@ -75,7 +75,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<td>{{ d.asal_sekolah }}</td>
 							<td>{{ d.hp }}</td>
 							<td>
-								<a target="_blank" :href="getLinkFile(d.kartu_keluarga)">{{ d.kartu_keluarga }}</a>
+								<a target="_blank" :href="getLinkFile(d.file_kartu_keluarga)">Lihat File</a>
 							</td>
 							<td>
 								<button v-on:click="deleteData(d.id_peserta)" class="btn btn-danger btn-sm">x</button>

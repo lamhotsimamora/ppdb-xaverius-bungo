@@ -14,11 +14,12 @@ class M_peserta extends CI_Model
 	public $ayah;
 	public $ibu;
 	public $asal_sekolah;
+	public $file_kartu_keluarga;
+	public $tgl_daftar;
 	//
 
 	// Definisi nama tabel
 	protected $table      = 'peserta';
-	protected $view      = 'view_peserta';
 	protected $primaryKey = 'id_peserta';
 	protected $useAutoIncrement = true;
 
@@ -30,7 +31,7 @@ class M_peserta extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->view);
+			->from($this->table);
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return $data;
@@ -38,6 +39,16 @@ class M_peserta extends CI_Model
 
 	public function loadData_byId(){
 		$this->db->select('*')
+			->from($this->table)
+			->where(['id_peserta' => $this->id_peserta]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+		return count($data)>0 ? $data[0]:null;
+	}
+
+	public function loadFile(){
+		$this->db->select('file_kartu_keluarga')
 			->from($this->table)
 			->where(['id_peserta' => $this->id_peserta]);
 
@@ -69,6 +80,18 @@ class M_peserta extends CI_Model
 		return (count($data) > 0) ? true : false;
 	}
 
+	public function save_file_kartu_keluarga()
+	{
+		// $data = array(
+		// 	'file_kartu_keluarga' => $this->file_kartu_keluarga
+		// );
+		// $this->db->where('id_peserta', $this->id_peserta);
+		// return $this->db->update($this->table, $data);
+		$query = $this->db->query("update peserta set file_kartu_keluarga='".$this->file_kartu_keluarga."' 
+		WHERE id_peserta=".$this->id_peserta."");
+		return $query;
+	}
+
 	public function save_data()
 	{
 		$data = array(
@@ -79,6 +102,7 @@ class M_peserta extends CI_Model
 			'ayah' => $this->ayah,
 			'ibu' => $this->ibu,
 			'hp' => $this->hp,
+			
 		);
 		$this->db->where('id_peserta', $this->id_peserta);
 		return $this->db->update($this->table, $data);
@@ -90,6 +114,7 @@ class M_peserta extends CI_Model
 			'username' => $this->username,
 			'password' => _md5($this->password),
 			'token' => createTokenPeserta($this->username),
+			'tgl_daftar'=>_getDate()
 		);
 		return $this->db->insert($this->table, $data);
 	}

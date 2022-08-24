@@ -27,9 +27,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="card-content">
 				<h2 class="title is-2">Pendaftaran Peserta PPDB</h2>
 				<hr>
-				<progress class="progress is-primary" :value="start" max="100">
-
-				</progress>
+				<center v-if="loading">
+					<figure class="image is-48x48">
+						<img class="is-rounded" src="<?= base_url() ?>public/img/loading.gif">
+					</figure>
+				</center>
 
 				<div id="message"></div> <br>
 				<input id="username" @keypress="enterDaftar" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
@@ -67,7 +69,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			data: {
 				username: null,
 				password: null,
-				start: null,
+				loading: false
 			},
 			mounted() {
 				this.start = 0;
@@ -94,13 +96,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						}).focus();
 						return;
 					}
+					this.loading = true;
 					Vony({
 						id: 'message'
 					}).set('');
 
-					var timerLoading = setInterval(() => {
-						this.start++;
-					}, 50);
 
 					Vony({
 						url: server + 'peserta/api_daftar',
@@ -114,8 +114,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						var obj = JSON.parse($response);
 						var result = obj.result;
 
-						clearInterval(timerLoading);
-
+						this.loading = false;
 						if (result == true) {
 							Vony({
 								id: 'message'

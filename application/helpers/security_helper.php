@@ -60,3 +60,7 @@ function _randomStr($length = 10)
 	}
 	return $rS;
 }
+
+function _replaceSq($v){
+	return str_replace("'","",$v);
+}

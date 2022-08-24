@@ -175,10 +175,13 @@ class Peserta extends CI_Controller
 	public function api_daftar()
 	{
 		
-		$username=$this->M_peserta->username = $this->input->post('username');
-		$password=$this->M_peserta->password = $this->input->post('password');
-
+		$username=$this->input->post('username');
+		$password=$this->input->post('password');
+		
 		validationInput($username,$password);
+
+		$this->M_peserta->username = $username;
+		$this->M_peserta->password = $password;
 
 		$check = $this->M_peserta->checkUsername();
 
@@ -198,6 +201,63 @@ class Peserta extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_upload_file(){
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
 
+		$id_peserta = $this->input->post('id');
+		
+		validationInput($id_peserta);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/file/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result= array('result'=>false,'message'=>'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_kartu_keluarga');
+
+		if ( $result_upload )
+		{
+			$this->M_peserta->id_peserta = _replaceSq($id_peserta);
+			
+			$filename = $this->upload->data('file_name');   
+			
+			$this->M_peserta->file_kartu_keluarga = $filename;
+		
+			$save = $this->M_peserta->save_file_kartu_keluarga();
+		
+			if ($save){
+				$result = array('result'=>true,'message'=>'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+	public function api_load_file(){
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+	
+		$id_peserta = $this->input->post('id_peserta');
+	
+		validationInput($id_peserta);
+
+		$this->M_peserta->id_peserta = $id_peserta;
+
+		$data = $this->M_peserta->loadFile();
+
+		echo json_encode($data);
+	
+	}
 	
 }

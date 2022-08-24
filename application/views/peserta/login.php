@@ -27,6 +27,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="card-content">
 				<h2 class="title is-2">Login Peserta PPDB</h2>
 				<hr>
+				<center v-if="loading">
+					<figure class="image is-48x48">
+						<img class="is-rounded" src="<?= base_url() ?>public/img/loading.gif">
+					</figure>
+				</center>
 				<div id="message"></div> <br>
 				<input id="username" @keypress="enterLogin" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
 				<input id="password" @keypress="enterLogin" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
@@ -58,7 +63,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			el: '#app',
 			data: {
 				username: null,
-				password: null
+				password: null,
+				loading : false
 			},
 			methods: {
 				enterLogin: function(e) {
@@ -82,6 +88,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						}).focus();
 						return;
 					}
+					this.loading = true;
 
 					Vony({
 						url: server + 'peserta/api_login',
@@ -95,7 +102,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						var obj = JSON.parse($response);
 						var result = obj.result;
 						var token = obj.token;
-
+						this.loading = false;
 						if (result == true) {
 							localStorage.setItem('token',token);
 							Vony({
