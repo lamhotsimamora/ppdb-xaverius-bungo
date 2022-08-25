@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login Admin</title>
+	<title>Login Admin | Yayasan Xaverius Palembang</title>
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/bootstrap.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/jquery-1.9.1.min.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</h4>
 		<hr>
 		<h3 class="text-center">
-			PPDB Xaverius Muara Bungo
+			PPDB Online Yayasan Xaverius Palembang
 		</h3>
 		<hr>
 		<div v-html="message">

@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login |PPDB Online Xaverius Muara Bungo</title>
+	<title>Login | Yayasan Xaverius Palembang</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div id="app" class="container">
 		<div class="card">
 			<div class="card-content">
-				<h2 class="title is-2">Login Peserta PPDB</h2>
+				<h2 class="title is-2">Login Peserta PPDB Xaverius Bungo</h2>
 				<hr>
 				<center v-if="loading">
 					<figure class="image is-48x48">

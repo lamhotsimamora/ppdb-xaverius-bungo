@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Daftar |PPDB Online Xaverius Muara Bungo</title>
+	<title>Daftar | Yayasan Xaverius Palembang</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div id="app" class="container">
 		<div class="card">
 			<div class="card-content">
-				<h2 class="title is-2">Pendaftaran Peserta PPDB</h2>
+				<h2 class="title is-2">Pendaftaran Peserta PPDB Online Xaverius Bungo</h2>
 				<hr>
 				<center v-if="loading">
 					<figure class="image is-48x48">
@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</center>
 
 				<div id="message"></div> <br>
-				<input id="username" @keypress="enterDaftar" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
+				<input id="username" @keypress="enterDaftar" @keyup="removeSpace" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
 				<input id="password" @keypress="enterDaftar" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
 				<button class="button is-success" @click="daftar">Daftar</button>
 				<button class="button is-primary" @click="login">Login</button>
@@ -75,10 +75,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				this.start = 0;
 			},
 			methods: {
+				removeSpace: function(){
+					if (this.username != null){
+						
+						this.username =  this.username.replace(" ", "");
+					}
+				},
 				enterDaftar: function(e) {
 					if (e.keyCode == 13) {
 						this.daftar();
 					}
+					
 				},
 				login: function() {
 					reload(server + 'peserta/login')

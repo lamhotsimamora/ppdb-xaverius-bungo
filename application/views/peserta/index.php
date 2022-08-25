@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>PPDB Online Xaverius Muara Bungo</title>
+	<title>Official Web PPDB Online | Yayasan Xaverius Palembang</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
@@ -27,11 +27,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="card-content">
 
 				<p class="title">
-					SELAMAT Datang di Website PPDB Online.
+					SELAMAT Datang di Website PPDB Online Xaverius Muara Bungo.
 				</p>
 				<hr>
 				<p class="subtitle">
-					Website Resmi Penerimaan Peserta Didik Baru Xaverius Bungo
+					Website Resmi Penerimaan Peserta Didik Baru Yayasan Xaverius Palembang
 				</p>
 
 			</div>

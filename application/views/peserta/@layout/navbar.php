@@ -2,7 +2,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
 	<div class="navbar-brand">
 		<a class="navbar-item" href=".">
-			<img src="<?= base_url() ?>/public/img/xaverius.jpg" width="80" height="25">
+			<img src="<?= base_url() ?>/public/img/xaverius.jpg" width="58" height="25">
 		</a>
 
 		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
