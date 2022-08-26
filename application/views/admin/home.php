@@ -76,7 +76,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<td>{{ d.asal_sekolah }}</td>
 							<td>{{ d.hp }}</td>
 							<td>
-								<a target="_blank" :href="getLinkFile(d.file_kartu_keluarga)">Lihat File</a>
+								<a :target="target_link" :href="getLinkFile(d.file_kartu_keluarga)">{{ display_link }}</a>
 							</td>
 							<td>
 								<button v-on:click="deleteData(d.id_peserta)" class="btn btn-danger btn-sm">x</button>
@@ -100,11 +100,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			el: '#app',
 			data: {
 				data_peserta: null,
-				search: null
+				search: null,
+				display_link: null,
+				target_link: null
 			},
 			methods: {
-				getLinkFile: function(v){
-					return server+'public/file/'+v;
+				getLinkFile: function(v) {
+					if (v == null) {
+						this.display_link = '-';
+						this.target_link = '';
+						return '#nothing';
+					}
+					this.target_link = '_blank';
+					this.display_link = 'Lihat File';
+					return server + 'public/file/' + v;
 				},
 				searchData: function() {
 					if (this.search == null || this.search === '') {

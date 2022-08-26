@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
-	
+
 	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
 </head>
 
@@ -71,11 +71,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				loading: false,
 				username: null,
 				password: null,
-				message : null
+				message: null
 			},
 			methods: {
 				login: function() {
-					
+
 					if (this.username == null || this.username === '') {
 						Vony({
 							id: 'username'
@@ -121,7 +121,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			},
 		})
 
-		var password = Vony({id:'password'})
+		var password = Vony({
+			id: 'password'
+		})
 
 
 		var btnshowpassword = Vony({
@@ -135,8 +137,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				btnshowpassword.set('Show Password')
 			}
 		});
-
-	
 	</script>
 
 </body>
