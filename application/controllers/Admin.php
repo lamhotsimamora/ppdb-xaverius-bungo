@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+
 class Admin extends CI_Controller {
 
 	public function AuthLogin(){
@@ -128,12 +130,27 @@ class Admin extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function cetak($id_peserta=null){
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		if ($id_peserta){
+			$this->load->model("M_peserta");
+			$this->M_peserta->id_peserta = $id_peserta;
 
-	// public function add(){
-	// 	$result = $this->M_admin->add();
-		
-	// 	var_dump($result);
-	// }
+			$check = $this->M_peserta->checkDataById();
 
-	
+			if ($check){
+				$data = $this->M_peserta->loadData_byId();
+
+				$this->load->view('admin/cetak',$data);
+			}else{
+				redirect('./admin/home');
+			}
+		}else{
+			redirect('./admin/home');
+		}
+	}
 }
+
+

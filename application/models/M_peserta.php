@@ -47,6 +47,16 @@ class M_peserta extends CI_Model
 		return count($data)>0 ? $data[0]:null;
 	}
 
+	public function checkDataById(){
+		$this->db->select('id_peserta')
+			->from($this->table)
+			->where(['id_peserta' => $this->id_peserta]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+		return count($data)>0 ? true:false;
+	}
+
 	public function loadFile(){
 		$this->db->select('file_kartu_keluarga')
 			->from($this->table)

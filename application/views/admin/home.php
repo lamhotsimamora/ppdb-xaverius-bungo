@@ -79,6 +79,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<a :target="target_link" :href="getLinkFile(d.file_kartu_keluarga)">{{ display_link }}</a>
 							</td>
 							<td>
+								
+							<button v-on:click="cetakData(d.id_peserta)" class="btn btn-primary btn-sm">
+								Cetak
+							</button>
 								<button v-on:click="deleteData(d.id_peserta)" class="btn btn-danger btn-sm">x</button>
 							</td>
 						</tr>
@@ -120,6 +124,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						Vony({
 							id: 'search'
 						}).focus();
+						this.loadData()
 						return;
 					}
 
@@ -163,37 +168,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							break;
 					}
 				},
+				cetakData: function(id) {
+					if (id) {
+						reload(server+'admin/cetak/'+id);
+					}
+				},
 				deleteData: function(data_id) {
-					Swal.fire({
-						title: 'Yakin mau hapus data ini ?',
-						text: "Data yang dihapus tidak bisa dikembalikan",
-						icon: 'warning',
-						showCancelButton: true,
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33',
-						confirmButtonText: 'Yes, delete it!'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							Vony({
-								url: server + 'admin/api_delete_data',
-								method: 'post',
-								data: {
-									_TOKEN_: _TOKEN_,
-									id_peserta: data_id
-								}
-							}).ajax(($response) => {
+					if (data_id) {
+						Swal.fire({
+							title: 'Yakin mau hapus data ini ?',
+							text: "Data yang dihapus tidak bisa dikembalikan",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Yes, delete it!'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								Vony({
+									url: server + 'admin/api_delete_data',
+									method: 'post',
+									data: {
+										_TOKEN_: _TOKEN_,
+										id_peserta: data_id
+									}
+								}).ajax(($response) => {
 
-								this.loadData();
-								Swal.fire(
-									'Deleted!',
-									'Data has been deleted.',
-									'success'
-								)
-							});
+									this.loadData();
+									Swal.fire(
+										'Deleted!',
+										'Data has been deleted.',
+										'success'
+									)
+								});
 
-						}
-					})
-
+							}
+						})
+					}
 				},
 				loadData: function() {
 					Vony({
