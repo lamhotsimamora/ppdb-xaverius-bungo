@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cetak Data Peserta PPDB Online Xaverius Bungo | Yayasan Xaverius Palembang</title>
+	<title>Cetak Data Peserta PPDB Online</title>
 
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/paper.css">
 </head>

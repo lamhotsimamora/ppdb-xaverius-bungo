@@ -9,12 +9,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Daftar | Yayasan Xaverius Palembang</title>
+	<title>Daftar PPDB Online</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
-	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/xaverius.jpg">
+	<link rel="icon" type="image/x-icon" href="<?= base_url() ?>/public/img/favicon.ico">
 </head>
 
 <body>
@@ -25,7 +25,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div id="app" class="container">
 		<div class="card">
 			<div class="card-content">
-				<h2 class="title is-2">Pendaftaran Peserta PPDB Online Xaverius Bungo</h2>
+				<h3 class="title is-2">Pendaftaran Peserta PPDB Online 
+				<strong style="color: #6c5ce7"><?= $data_sekolah['name'] ?></strong>
+				</h3>
 				<hr>
 				<center v-if="loading">
 					<figure class="image is-48x48">
@@ -37,8 +39,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<input id="username" @keypress="enterDaftar" @keyup="removeSpace" v-model="username" type="text" class="input is-primary" placeholder="Username"> <br> <br>
 				<input id="password" @keypress="enterDaftar" v-model="password" type="password" class="input is-primary" placeholder="Password"> <br> <br>
 				<button class="button is-success" @click="daftar">Daftar</button>
-				<button class="button is-primary" @click="login">Login</button>
-
+				<br>
+				<br>
+				<a href="<?= base_url() ?>peserta/login">Login</a>
 			</div>
 
 		</div>

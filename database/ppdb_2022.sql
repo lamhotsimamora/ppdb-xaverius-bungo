@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Agu 2022 pada 10.08
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.0
+-- Waktu pembuatan: 10 Okt 2022 pada 05.03
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ppdb_xaverius`
+-- Database: `ppdb_2022`
 --
 
 -- --------------------------------------------------------
@@ -64,6 +64,32 @@ CREATE TABLE `peserta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data untuk tabel `peserta`
+--
+
+INSERT INTO `peserta` (`id_peserta`, `username`, `nama_lengkap`, `tgl_daftar`, `asal_sekolah`, `agama`, `password`, `alamat`, `ayah`, `ibu`, `hp`, `file_kartu_keluarga`, `token`) VALUES
+(38, 'simamora', NULL, '2022-10-10', NULL, NULL, '322f53b801f58847517b8fc259b40913a532', NULL, NULL, NULL, NULL, NULL, '32372f29e47ea07a411d54801d8ea67fb832');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `school`
+--
+
+CREATE TABLE `school` (
+  `id_school` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `info` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `school`
+--
+
+INSERT INTO `school` (`id_school`, `name`, `info`) VALUES
+(1, 'SMP Negeri 1 Jakarta', 'Tahap 1 :\nTahap 2 : \nTahap 3 : ');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -80,6 +106,12 @@ ALTER TABLE `peserta`
   ADD PRIMARY KEY (`id_peserta`);
 
 --
+-- Indeks untuk tabel `school`
+--
+ALTER TABLE `school`
+  ADD PRIMARY KEY (`id_school`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -93,7 +125,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT untuk tabel `school`
+--
+ALTER TABLE `school`
+  MODIFY `id_school` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,8 +6,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+
+			<li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/sekolah">Data Sekolah</a>
+            </li>
+
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/data_peserta">Data Peserta</a>
+                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>admin/home">Data Peserta</a>
             </li>
            
             

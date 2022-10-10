@@ -33,6 +33,8 @@ class Peserta extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_peserta');
 		
+		$this->load->model("M_Sekolah");
+		
 		$this->session_peserta	= $this->session->has_userdata('peserta');
 		$this->session_token	= $this->session->has_userdata('token');
 	}
@@ -63,6 +65,11 @@ class Peserta extends CI_Controller
 	public function index()
 	{
 		$data['session_peserta'] = $this->session_peserta;
+
+		$this->M_Sekolah->id_school = 1;
+		$school = $this->M_Sekolah->loadDataById();
+
+		$data['data_sekolah'] = $school;
 		if ($this->AuthLogin()){
 			$token =  $this->session->userdata('token');
 			$token = $token[0]->{'token'};
@@ -70,6 +77,8 @@ class Peserta extends CI_Controller
 			$id_peserta = $id_peserta->{'id_peserta'};
 			
 			$data['id_peserta'] = $id_peserta;
+
+			
 			$this->load->view('peserta/home',$data);
 			
 		}else{
@@ -96,11 +105,19 @@ class Peserta extends CI_Controller
 
 	public function daftar()
 	{
+		$this->M_Sekolah->id_school = 1;
+		$school = $this->M_Sekolah->loadDataById();
+
+		$data['data_sekolah'] = $school;
 		$data['session_peserta'] = $this->session_peserta;
 		$this->load->view('peserta/daftar',$data);
 	}
 
 	public function upload(){
+		$this->M_Sekolah->id_school = 1;
+		$school = $this->M_Sekolah->loadDataById();
+
+		$data['data_sekolah'] = $school;
 		$data['session_peserta'] = $this->session_peserta;
 		if ($this->AuthLogin()){
 			$token =  $this->session->userdata('token');
@@ -117,6 +134,10 @@ class Peserta extends CI_Controller
 
 	public function login()
 	{
+		$this->M_Sekolah->id_school = 1;
+		$school = $this->M_Sekolah->loadDataById();
+
+		$data['data_sekolah'] = $school;
 		$data['session_peserta'] = $this->session_peserta;
 		if ($this->AuthLogin()){
 			$this->load->view('peserta/home',$data);

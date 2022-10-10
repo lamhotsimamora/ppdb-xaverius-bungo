@@ -2,7 +2,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
 	<div class="navbar-brand">
 		<a class="navbar-item" href=".">
-			<img src="<?= base_url() ?>/public/img/xaverius.jpg" width="58" height="25">
+			<img src="<?= base_url() ?>/public/img/school.png" width="58" height="25">
 		</a>
 
 		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -14,19 +14,10 @@
 
 	<div id="navbarBasicExample" class="navbar-menu">
 		<div class="navbar-start">
-			<a class="navbar-item">
+			<a href="<?= base_url() ?>" class="navbar-item">
 				Home
 			</a>
-			<a class="navbar-item">
-				Alur
-			</a>
-			<a class="navbar-item">
-				Jadwal
-			</a>
-			<a class="navbar-item">
-				Kontak
-			</a>
-
+			
 			<div class="navbar-item has-dropdown is-hoverable">
 				<a class="navbar-link">
 					More
@@ -35,16 +26,6 @@
 				<div class="navbar-dropdown">
 					<a class="navbar-item">
 						About
-					</a>
-					<a class="navbar-item">
-						Jobs
-					</a>
-					<a class="navbar-item">
-						Contact
-					</a>
-					<hr class="navbar-divider">
-					<a href="<?= base_url() ?>peserta/logout" class="navbar-item">
-						Logout
 					</a>
 				</div>
 			</div>
